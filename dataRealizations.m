@@ -132,6 +132,17 @@ else  % Averaging == 1 (average on periods of one trial) or 2 (average on all pe
         end
     end
     
+    if (SubjIndex == 12)
+        if (Experiment == 3) % PRTS dt=0.1
+            periodTime = 24.2 * SR;
+            periodCount = 4; % number of periods to be considered
+        end
+        if (Experiment == 2) % PRTS dt=0.2
+            periodTime = 48.4 * SR;
+            periodCount = 4; % number of periods to be considered
+        end
+    end
+    
     
     Trials_Data_Realizations.vr_realizations = VR_IO_Averaging(Trials_Data.vr_input_deg, Trials_Data.trials, periodTime, periodCount, 'y');
     Trials_Data_Realizations.left_tq = VR_IO_Averaging(Trials_Data.Torque_L, Trials_Data.trials, periodTime, periodCount, 'n');

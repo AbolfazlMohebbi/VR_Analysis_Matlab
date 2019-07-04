@@ -7,13 +7,15 @@ dataPath = pwd + "\data\";
 
 %% Load Data and subject info: 
 
-fid = fopen('SubjectsParams.csv');
+fid = fopen('SubjectsParams/SubjectsParams.csv');
 Subject_data = textscan(fid, '%d %s %f %f %f %f %f %f %d %d %s %s', 'Delimiter', ',', 'HeaderLines', 1);
 fclose(fid);
 Subject_Names = Subject_data{2};
+Exp_date = Subject_data{12};
+Subject_File = Subject_data{11};
 str_full = '';
 for i=1:length(Subject_Names)    
-    str_buff = strcat(int2str(i),'- ', string(Subject_Names(i)), '\n');
+    str_buff = strcat(int2str(i),'- ', string(Subject_Names(i)), ' -- ', string(Exp_date(i)), ' -- ', string(Subject_File(i)), '\n');
     str_full = strcat(str_full, {' '}, str_buff);    
 end
 
@@ -51,10 +53,10 @@ trials = {data.comment}
 [Experiment, NN, trials, Amp, FigsPath, Averaging, stackTrials] = getExperimentSpecs(SubjIndex);
 
 %% read trials data based on chosen experiments
-Trials_Data = getTrialsData(SubjIndex,Subject_data, flb_file_path, Experiment, NN, trials);
+Trials_Data = getTrialsData(SubjIndex, Subject_data, flb_file_path, Experiment, NN, trials);
 
 %% remove NaNs
-Trials_Data = removeNAN(Trials_Data);
+%Trials_Data = removeNAN(Trials_Data);
 
 %% Synchronise the start time for VR input and outputs 
 Trials_Data = syncStartData(SubjIndex, Trials_Data, Experiment, NN);

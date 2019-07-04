@@ -815,6 +815,94 @@ if (SubjIndex == 11) % Shkar Shaho - 20 June 2019
     FigsPath = strcat('FigLogs/',datestring,'/',VRStr, ExperimentStr,'_',AmpStr,'_',condstr);    
 end
 
+if (SubjIndex == 12)   % Shkar Shaho - 02 July 2019  
+    Experiment = input('Which experiment would you like to examine?\n 1) TrapZ \n 2) PRTS dt=0.2 \n 3) PRTS dt=0.1 \n');
+    if (Experiment == 1)
+        ExperimentStr = 'TrapZ';
+        NN = input('Which experiment do you want to examine for TrapZ?\n 1) TrapZ 2deg, 5dps (1 Trial) \n 2) TrapZ 2deg, 10dps (1 Trial) \n 3) TrapZ 5deg, 5dps (2 Trials) \n 4) TrapZ 5deg, 10dps (2 Trials) \n');
+        if NN == 1
+            trials = [7];
+            Amp = 2.0;
+            AmpStr = '2deg';
+            SpecStr = '5dps';
+        elseif NN == 2
+            trials = [8];
+            Amp = 2.0;
+            AmpStr = '2deg';
+            SpecStr = '10dps';
+        elseif NN == 3
+            trials = [3, 4];
+            Amp = 5.0;
+            AmpStr = '5deg';
+            SpecStr = '5dps';
+        elseif NN == 4
+            trials = [5, 6];
+            Amp = 5.0;
+            AmpStr = '5deg';
+            SpecStr = '10dps';
+        end
+    end
+    
+    if (Experiment == 2)   % PRTS dt=0.2
+        NN = input('Which experiment do you want to examine for PRTS?\n 1) PRTS 2deg, dt=0.2s (1 Trial) \n 2) PRTS 5deg, dt=0.2s (3 Trials) \n');
+        ExperimentStr = 'PRTS';
+        if NN == 1
+            trials = [13];  % 2 deg, dt=0.2s
+            Amp = 2.0;
+            AmpStr = '2deg';
+            min_PRTS = -0.03411767;
+            SpecStr = 'dt200ms';                
+        elseif NN == 2
+            trials = [11, 12, 16];  % 5 deg, dt=0.2s
+            Amp = 5.0;
+            AmpStr = '5deg';
+            min_PRTS = -0.03411767;
+            SpecStr = 'dt200ms';            
+        end
+    end
+    
+    if (Experiment == 3)   % PRTS dt=0.1
+        NN = input('Which experiment do you want to examine for PRTS?\n 1) PRTS 2deg, dt=0.1s (1 Trial) \n 2) PRTS 5deg, dt=0.1s  (3 Trials)\n');
+        ExperimentStr = 'PRTS';
+        if NN == 1
+            trials = [14];  % 2 deg, dt=0.1s
+            Amp = 5.0;
+            AmpStr = '2deg';
+            min_PRTS = -0.03411765;
+            SpecStr = 'dt100ms';
+        elseif NN == 2
+            trials = [9, 10, 15];  % 5 deg, dt=0.1s
+            Amp = 5.0;
+            AmpStr = '5deg';
+            min_PRTS = -0.03411765;
+            SpecStr = 'dt100ms';
+        end
+    end
+    
+    trial_case = 0;
+    stackTrials = input('Do you wish to stack trials together as one signal?\n 1) Yes\n 2) No\n');
+    if (stackTrials == 2)
+        if (Experiment == 2) || (Experiment == 3)
+            Averaging = input('Which kind of averaging?\n 0)No Averaging (each trial separately)\n 1)Average on periods for each trial\n 2)Average on periods and trials\n');
+            if ((Averaging == 0) || (Averaging == 1))
+                trial_case = input('Which trial of this experiment do you want to examine?\n 1) First Trial\n 2) Second Trial\n ');
+                trials = trials(trial_case);
+            end
+        else
+            trial_case = input('Which trial of this experiment do you want to examine?\n 1) First Trial\n 2) Second Trial\n ');
+            trials = trials(trial_case);
+        end
+    end
+    
+    if (stackTrials == 2) stackcondstr = 'NoStack'; end
+    if (stackTrials == 1) stackcondstr = 'WStack'; end
+    if (Averaging == 0) avgstr = 'NoAvrg'; end
+    if (Averaging == 1) avgstr = 'AvrgPeriod'; end
+    if (Averaging == 2) avgstr = 'AvrgAll'; end
+    
+    condstr = strcat(avgstr,'_',stackcondstr, '_Tr', int2str(trial_case));
+    FigsPath = strcat('FigLogs/',datestring,'/',ExperimentStr,'_',AmpStr,SpecStr,'_',condstr);
+end
 
 
 end

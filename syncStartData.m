@@ -186,8 +186,7 @@ if (SubjIndex == 10)
     end    
 end
 
-if (SubjIndex == 11)
-    
+if (SubjIndex == 11)    
     if (Experiment == 1)  % If HSin
         if (NN==1)
             ti = 0.5 * SR;
@@ -216,8 +215,26 @@ if (SubjIndex == 11)
     if (Experiment == 5)       
         ti = 0.5 * SR;
         tf = 110 * SR;
-    end  
-    
+    end      
+end
+
+
+if (SubjIndex == 12)
+    %     if (Experiment == 1) % TrapZ
+    %         ti = input('Please Specify the initial time in seconds. ti = ');
+    %         tf = input('Please Specify the final time in seconds. tf = ');
+    %         ti = ti * SR;
+    %         tf = tf * SR;
+    %         %ti = 1 * SR;
+    %         %tf = 121 * SR;
+    %
+    %     elseif (Experiment == 2)    % for PRTS dt=0.2 (4 Period)
+    %         ti = 240; tf = 200 * SR;
+    %     elseif (Experiment == 3)    % for PRTS dt=0.1 (6 Period)
+    %         ti = 240; tf = 150 * SR;
+    %     end
+    ti = 100;
+    tf = length(vr_input_new)- 5 * SR;    
 end
 
 vr_input_new = vr_input_new(:, ti:tf);  

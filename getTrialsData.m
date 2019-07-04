@@ -21,6 +21,9 @@ for i = 1:length(trials)
     trial_names = data_trial.comment  % To verify the trials
     Channel_Length = data_trial.chanLen;  %Trial time
     
+    data_trial.Data = removeNAN(data_trial.Data, 'Array');
+    Channel_Length = length(data_trial.Data);  %Trial time 
+    
     % ************ Define Experiment Specific Channel Length *********
     if (SubjIndex == 1)
         % To be completed
@@ -92,6 +95,12 @@ for i = 1:length(trials)
         if (Experiment == 4) Channel_Length = 80 * SR; end  % If TrapZ
         if (Experiment == 5) Channel_Length = 113 * SR; end  % If TrapV       
     end
+    
+%     if (SubjIndex == 12)
+%         if (Experiment == 1) Channel_Length = 130 * SR; end  % If TrapZ
+%         if (Experiment == 2) Channel_Length = 202 * SR; end  % If PRTS dt=0.2
+%         if (Experiment == 3) Channel_Length = 152 * SR; end  % If PRTS dt=0.1
+%     end
 
     % ****************************************************************    
     t = (0:(1/SR):(Channel_Length - LasDel)/SR)';    
@@ -108,9 +117,9 @@ for i = 1:length(trials)
     vRight=data_trial.Data(1:Channel_Length,13);
     vHip=data_trial.Data(1:Channel_Length,12);
     
-    load LeftLaserCalibrationConstants
-    load RightLaserCalibrationConstants
-    load HipLaserCalibrationConstants
+    load(fullfile('CalibrationParams', 'LeftLaserCalibrationConstants'))
+    load(fullfile('CalibrationParams', 'RightLaserCalibrationConstants'))
+    load(fullfile('CalibrationParams', 'HipLaserCalibrationConstants'))
     
     % finding the distances
     dLeftSh = mLeftLaser * vLeft(LasDel:Channel_Length) + bLeftLaser;

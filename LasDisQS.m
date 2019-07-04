@@ -13,9 +13,14 @@ function [dLeftSh,dRightSh,dHip] = LasDisQS(vLeft,vRight,vHip)
 %               HipAngle: hip angle
 % By Pouya Amiri, Sep 2016
 
-load LeftLaserCalibrationConstants
-load RightLaserCalibrationConstants
-load HipLaserCalibrationConstants
+% load LeftLaserCalibrationConstants
+% load RightLaserCalibrationConstants
+% load HipLaserCalibrationConstants
+
+load(fullfile('CalibrationParams', 'LeftLaserCalibrationConstants'))
+load(fullfile('CalibrationParams', 'RightLaserCalibrationConstants'))
+load(fullfile('CalibrationParams', 'HipLaserCalibrationConstants'))
+
 % finding the distances
 dLeftSh = mLeftLaser * vLeft + bLeftLaser;
 dRightSh = mRightLaser * vRight + bRightLaser;
