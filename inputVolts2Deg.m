@@ -117,5 +117,20 @@ if (SubjIndex == 12)
     end
 end
 
+if (SubjIndex == 13)      
+    if (Experiment == 1)
+        vr_input_deg = (vr_input_volts-1.176471)*(Amp/5.0);        
+    elseif (Experiment == 2)
+        vr_input_deg = (vr_input_volts-1.176472)*(Amp/5.0);
+    end
+end
+
+if (SubjIndex == 14)
+    if (Experiment == 1)
+        vr_input_deg = (Amp/2) * ((vr_input_volts/2.5) - 1.0);        
+    end
+end
+
+
 end
 

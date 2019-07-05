@@ -237,6 +237,11 @@ if (SubjIndex == 12)
     tf = length(vr_input_new)- 5 * SR;    
 end
 
+if (SubjIndex == 13) || (SubjIndex == 14)
+    ti = 100;
+    tf = length(vr_input_new)- 5 * SR;    
+end
+
 vr_input_new = vr_input_new(:, ti:tf);  
 
 LeftShAngle_new = LeftShAngle_new(:, ti:tf);

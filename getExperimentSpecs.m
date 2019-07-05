@@ -905,5 +905,124 @@ if (SubjIndex == 12)   % Shkar Shaho - 02 July 2019
 end
 
 
+if (SubjIndex == 13)   % Shkar Shaho - 05 July 2019 - PRTS 
+    Experiment = input('Which experiment would you like to examine?\n 1) PRTS dt=0.2 \n 2) PRTS dt=0.1 \n');
+    
+    if (Experiment == 1)   % PRTS dt=0.2
+        NN = input('Which experiment do you want to examine for PRTS?\n 1) PRTS 2deg, dt=0.2s (1 Trial) \n 2) PRTS 5deg, dt=0.2s (1 Trials) \n');
+        ExperimentStr = 'PRTS';
+        if NN == 1
+            trials = 4;  % 5 deg, dt=0.2s
+            Amp = 5.0;
+            AmpStr = '5deg';
+            min_PRTS = -0.03411767;
+            SpecStr = 'dt200ms';                
+        elseif NN == 2
+            trials = 5;  % 10 deg, dt=0.2s
+            Amp = 10.0;
+            AmpStr = '10deg';
+            min_PRTS = -0.03411767;
+            SpecStr = 'dt200ms';            
+        end
+    end
+    
+    if (Experiment == 2)   % PRTS dt=0.1
+        NN = input('Which experiment do you want to examine for PRTS?\n 1) PRTS 2deg, dt=0.1s (1 Trial) \n 2) PRTS 5deg, dt=0.1s  (1 Trials)\n');
+        ExperimentStr = 'PRTS';
+        if NN == 1
+            trials = 6;  % 2 deg, dt=0.1s
+            Amp = 5.0;
+            AmpStr = '5deg';
+            min_PRTS = -0.03411765;
+            SpecStr = 'dt100ms';
+        elseif NN == 2
+            trials = 7;  % 5 deg, dt=0.1s
+            Amp = 10.0;
+            AmpStr = '10deg';
+            min_PRTS = -0.03411765;
+            SpecStr = 'dt100ms';
+        end
+    end
+    
+    trial_case = 0;
+    stackTrials = input('Do you wish to stack trials together as one signal?\n 1) Yes\n 2) No\n');
+    if (stackTrials == 2)
+        if (Experiment == 1) || (Experiment == 2)
+            Averaging = input('Which kind of averaging?\n 0)No Averaging (each trial separately)\n 1)Average on periods for each trial\n 2)Average on periods and trials\n');
+            if ((Averaging == 0) || (Averaging == 1))
+                trial_case = input('Which trial of this experiment do you want to examine?\n 1) First Trial\n 2) Second Trial\n ');
+                trials = trials(trial_case);
+            end
+        else
+            trial_case = input('Which trial of this experiment do you want to examine?\n 1) First Trial\n 2) Second Trial\n ');
+            trials = trials(trial_case);
+        end
+    end
+    
+    if (stackTrials == 2) stackcondstr = 'NoStack'; end
+    if (stackTrials == 1) stackcondstr = 'WStack'; end
+    if (Averaging == 0) avgstr = 'NoAvrg'; end
+    if (Averaging == 1) avgstr = 'AvrgPeriod'; end
+    if (Averaging == 2) avgstr = 'AvrgAll'; end
+    
+    condstr = strcat(avgstr,'_',stackcondstr, '_Tr', int2str(trial_case));
+    FigsPath = strcat('FigLogs/',datestring,'/',ExperimentStr,'_',AmpStr,SpecStr,'_',condstr);
+end
+
+if (SubjIndex == 14)   % Shkar Shaho - 05 July 2019 - TrapV  
+    Experiment = input('Which experiment would you like to examine?\n 1) TrapV \n 2) NO OTHER EXPERIMENT IS AVAILABLE!!! \n');
+    if (Experiment == 1)
+        ExperimentStr = 'Trapv';
+        NN = input('Which experiment do you want to examine for TrapZ?\n 1) TrapV 2deg, 5dps (1 Trial) \n 2) TrapV 2deg, 10dps (1 Trial) \n 3) TrapV 5deg, 5dps (1 Trials) \n 4) TrapV 5deg, 10dps (1 Trials) \n');
+        if NN == 1
+            trials = 3;
+            Amp = 2.0;
+            AmpStr = '2deg';
+            SpecStr = '5dps';
+        elseif NN == 2
+            trials = 5;
+            Amp = 2.0;
+            AmpStr = '2deg';
+            SpecStr = '10dps';
+        elseif NN == 3
+            trials = 4;
+            Amp = 5.0;
+            AmpStr = '5deg';
+            SpecStr = '5dps';
+        elseif NN == 4
+            trials = 6;
+            Amp = 5.0;
+            AmpStr = '5deg';
+            SpecStr = '10dps';
+        end
+    end    
+        
+    trial_case = 0;
+    stackTrials = input('Do you wish to stack trials together as one signal?\n 1) Yes\n 2) No\n');
+    if (stackTrials == 2)
+        if (Experiment == 2) || (Experiment == 3)
+            Averaging = input('Which kind of averaging?\n 0)No Averaging (each trial separately)\n 1)Average on periods for each trial\n 2)Average on periods and trials\n');
+            if ((Averaging == 0) || (Averaging == 1))
+                trial_case = input('Which trial of this experiment do you want to examine?\n 1) First Trial\n 2) Second Trial\n ');
+                trials = trials(trial_case);
+            end
+        else
+            trial_case = input('Which trial of this experiment do you want to examine?\n 1) First Trial\n 2) Second Trial\n ');
+            trials = trials(trial_case);
+        end
+    end
+    
+    if (stackTrials == 2) stackcondstr = 'NoStack'; end
+    if (stackTrials == 1) stackcondstr = 'WStack'; end
+    if (Averaging == 0) avgstr = 'NoAvrg'; end
+    if (Averaging == 1) avgstr = 'AvrgPeriod'; end
+    if (Averaging == 2) avgstr = 'AvrgAll'; end
+    
+    condstr = strcat(avgstr,'_',stackcondstr, '_Tr', int2str(trial_case));
+    FigsPath = strcat('FigLogs/',datestring,'/',ExperimentStr,'_',AmpStr,SpecStr,'_',condstr);
+end
+
+
+
 end
 
