@@ -129,14 +129,12 @@ ylabel('VAF %', 'FontSize', 22);
 set(gca, 'XTickLabel', ExpTitles); xtickangle(gca,45)
 set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
 
-
 %% Save Figures
 datestring = datestr(now,'ddmmmyyyy_HH-MM');
-FigsPath = strcat('FigLogs/',datestring,'/VAF/');
+FigsPath = strcat('FigLogs/Comparisons/',datestring,'/VAF/');
 mkdir(FigsPath);
-SaveAllFigures(FigsPath, '.png');
-
-close all
+% SaveAllFigures(FigsPath, '.png');
+% close all
 
 
 

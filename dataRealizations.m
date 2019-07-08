@@ -2,6 +2,9 @@ function [Trials_Data_Realizations, Trials_NLD] = dataRealizations(SubjIndex, Ex
 
 global SR
 
+bDDT_VR     = input('Would you like to analyze the input Velocity or Position? \n 1) Velocity\n 2) Position\n');
+bDDT_Output = input('Would you like to analyze the output Velocity or Position? \n 1) Velocity\n 2) Position\n');
+
 if (Averaging == 0) % No averaging. show both trials at the same time   
     
     Trials_Data_Realizations.vr_realizations = Trials_Data.vr_input_deg;
@@ -205,24 +208,29 @@ if (stackTrials == 1)  % Stacking
     set(TorqueL,'dataSet', Trials_Data_Realizations.left_tq' ,'domainIncr', 1/SR);
     shankL = nldat;
     set(shankL,'dataSet', Trials_Data_Realizations.left_shank','domainIncr',1/SR);
+    if (bDDT_Output == 1) shankL = ddt(shankL); end
     
     %Right limb
     TorqueR = nldat;
     set(TorqueR,'dataSet', Trials_Data_Realizations.right_tq' ,'domainIncr',1/SR);
     shankR = nldat;
     set(shankR,'dataSet', Trials_Data_Realizations.right_shank','domainIncr',1/SR);
+    if (bDDT_Output == 1) shankR = ddt(shankR); end
     
     %Hip
     HipA = nldat;
     set(HipA,'dataSet', Trials_Data_Realizations.hip_angle' ,'domainIncr',1/SR);
+    if (bDDT_Output == 1) HipA = ddt(HipA); end
     
     % Summations
     TorqueSum = nldat;
     torque_s = Trials_Data_Realizations.left_tq + Trials_Data_Realizations.right_tq;
     set(TorqueSum,'dataSet', torque_s', 'domainIncr', 1/SR);
         
+    % VR input
     VRnldat = nldat;
     set(VRnldat,'dataSet', Trials_Data_Realizations.vr_realizations', 'domainIncr',1/SR);
+    if (bDDT_VR == 1) VRnldat = ddt(VRnldat); end
     
     % EMGs Right
     RSol = nldat; 
@@ -259,16 +267,19 @@ elseif ((stackTrials == 2) && (Averaging == 0))  % No stacking No Averaging
     set(TorqueL,'dataSet', Trials_Data_Realizations.left_tq' ,'domainIncr', 1/SR);
     shankL = nldat;
     set(shankL,'dataSet', Trials_Data_Realizations.left_shank','domainIncr',1/SR);
+    if (bDDT_Output == 1) shankL = ddt(shankL); end
     
     %Right limb
     TorqueR = nldat;
     set(TorqueR,'dataSet', Trials_Data_Realizations.right_tq' ,'domainIncr',1/SR);
     shankR = nldat;
     set(shankR,'dataSet', Trials_Data_Realizations.right_shank','domainIncr',1/SR);
+    if (bDDT_Output == 1) shankR = ddt(shankR); end
     
     %Hip
     HipA = nldat;
     set(HipA,'dataSet', Trials_Data_Realizations.hip_angle' ,'domainIncr',1/SR);
+    if (bDDT_Output == 1) HipA = ddt(HipA); end
     
     % Summations
     TorqueSum = nldat;
@@ -278,6 +289,8 @@ elseif ((stackTrials == 2) && (Averaging == 0))  % No stacking No Averaging
     % VR
     VRnldat = nldat;
     set(VRnldat,'dataSet', Trials_Data_Realizations.vr_realizations' , 'domainIncr',1/SR);
+    if (bDDT_VR == 1) VRnldat = ddt(VRnldat); end
+
     
     % EMGs Right
     RSol = nldat; 
@@ -313,22 +326,24 @@ elseif ((stackTrials == 2) && ((Averaging == 1) || (Averaging == 2)) ) % No stac
     set(TorqueL,'dataSet',mean(Trials_Data_Realizations.left_tq)' - mean(mean(Trials_Data_Realizations.left_tq)),'domainIncr', 1/SR);
     shankL = nldat;
     set(shankL,'dataSet',mean(Trials_Data_Realizations.left_shank)' - mean(mean(Trials_Data_Realizations.left_shank)),'domainIncr',1/SR);
+    if (bDDT_Output == 1) shankL = ddt(shankL); end
     
     %Right limb
     TorqueR = nldat;
     set(TorqueR,'dataSet',mean(Trials_Data_Realizations.right_tq)' - mean(mean(Trials_Data_Realizations.right_tq)) ,'domainIncr',1/SR);
     shankR = nldat;
     set(shankR,'dataSet',mean(Trials_Data_Realizations.right_shank)' - mean(mean(Trials_Data_Realizations.right_shank)),'domainIncr',1/SR);
+    if (bDDT_Output == 1) shankR = ddt(shankR); end
     
     %Hip
     HipA = nldat;
     set(HipA,'dataSet', mean(Trials_Data_Realizations.hip_angle)' - mean(mean(Trials_Data_Realizations.hip_angle)) ,'domainIncr',1/SR);
+    if (bDDT_Output == 1) HipA = ddt(HipA); end
     
     % Summations
     TorqueSum = nldat;
     torque_s = Trials_Data_Realizations.left_tq + Trials_Data_Realizations.right_tq;
-    set(TorqueSum,'dataSet',mean(torque_s)' - mean(mean(torque_s)),'domainIncr', 1/SR);
-    
+    set(TorqueSum,'dataSet',mean(torque_s)' - mean(mean(torque_s)),'domainIncr', 1/SR);    
     
     % EMGs Right
     RSol = nldat; 
@@ -359,7 +374,7 @@ elseif ((stackTrials == 2) && ((Averaging == 1) || (Averaging == 2)) ) % No stac
     VRnldat = nldat;
     set(VRnldat,'dataSet', mean(Trials_Data_Realizations.vr_realizations)' - mean(mean(Trials_Data_Realizations.vr_realizations)) ,'domainIncr',1/SR);    
     %set(VRnldat,'dataSet', (Trials_Data_Realizations.vr_realizations)' ,'domainIncr', 1/SR);
-
+    if (bDDT_VR == 1) VRnldat = ddt(VRnldat); end
 
 end
 
