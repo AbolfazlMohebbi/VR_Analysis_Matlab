@@ -50,7 +50,7 @@ irf_vr2tqR = irf(vr2tqR_decimated,'nSides',nsides,'nLags',nlags);
 irf_vr2shankL = irf(vr2shankL_decimated,'nSides',nsides,'nLags',nlags);
 irf_vr2shankR = irf(vr2shankR_decimated,'nSides',nsides,'nLags',nlags);
 
-irf_gui = input('Would you like to use GUI to draw the IRF of Body Angle and Torque Sum? \n 1) YES\n 2) NO \n');
+global irf_gui;
 
 if (irf_gui==1)
     irf_vr2hip = irf(vr2hip_decimated,'nSides',nsides,'nLags',nlags);
@@ -67,7 +67,7 @@ if (irf_gui==1)
 else
     irf_vr2hip = irf(vr2hip_decimated,'nSides',nsides,'nLags',nlags);
     irf_vr2tqSum = irf(vr2tqSum_decimated,'nSides',nsides,'nLags',nlags);    
-end    
+end  
 
 figure(length(findobj('type','figure'))+1)
 subplot(221)

@@ -1,8 +1,8 @@
 
-nFFT = 10 * SR;
+nFFT = 25 * SR;
 %nFFT = periodTime
 
-figure(12)
+figure(length(findobj('type','figure'))+1)
 inputVRpower = spect(Trials_NLD.VRnldat-mean(Trials_NLD.VRnldat),'nFFT',nFFT);
 pl3(1) = subplot(311);
 semilogx(0:SR/nFFT:SR/2,inputVRpower.dataSet);hold on
@@ -36,7 +36,7 @@ set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
 
 %% Power Spectrum Decimated
 
-figure(13)
+figure(length(findobj('type','figure'))+1)
 inputVRpower_decimated = spect(VRnldat_decimated,'nFFT', nFFT/dr);
 pl3(1) = subplot(311);
 semilogx(0:SR/nFFT:SR/(2*dr),inputVRpower_decimated.dataSet);hold on

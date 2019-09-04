@@ -1,11 +1,6 @@
-function [Trials_Data_Realizations, Trials_NLD] = dataRealizations(SubjIndex, Experiment, Trials_Data, Averaging, stackTrials, NN)
+function [Trials_Data_Realizations, Trials_NLD] = dataRealizations_App(SubjIndex, Experiment, Trials_Data, Averaging, stackTrials, NN, bDDT_VR, bDDT_Output)
 
 global SR
-
-% bDDT_VR     = input('Would you like to analyze the input Velocity or Position? \n 1) Velocity\n 2) Position\n');
-% bDDT_Output = input('Would you like to analyze the output Velocity or Position? \n 1) Velocity\n 2) Position\n');
-bDDT_VR     = 2;
-bDDT_Output = 2;
 
 if (Averaging == 0) % No averaging. show both trials at the same time   
     

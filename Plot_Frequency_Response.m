@@ -1,7 +1,7 @@
 %% Frequency Response 
 nOverlap = nFFT/(2*dr);
 
-figure(14)
+figure(length(findobj('type','figure'))+1)
 plot(fresp(vr2tqL_decimated,'nFFT',nFFT/dr,'nOverlap', nOverlap));
 title('FR: VR -> left tq ');hold on
 set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
@@ -10,7 +10,7 @@ set(allAxesInFigure(1), 'XScale', 'log')
 set(allAxesInFigure(2), 'XScale', 'log')
 set(allAxesInFigure(3), 'XScale', 'log')
 
-figure(15)
+figure(length(findobj('type','figure'))+1)
 plot(fresp(vr2tqR_decimated,'nFFT',nFFT/dr,'nOverlap', nOverlap));
 title('FR: VR -> right tq ');hold on
 set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
@@ -19,7 +19,7 @@ set(allAxesInFigure(1), 'XScale', 'log')
 set(allAxesInFigure(2), 'XScale', 'log')
 set(allAxesInFigure(3), 'XScale', 'log')
 
-figure(16)
+figure(length(findobj('type','figure'))+1)
 plot(fresp(vr2shankL_decimated,'nFFT',nFFT/dr,'nOverlap', nOverlap));
 title('FR: VR -> left shank angle ');hold on
 set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
@@ -28,7 +28,7 @@ set(allAxesInFigure(1), 'XScale', 'log')
 set(allAxesInFigure(2), 'XScale', 'log')
 set(allAxesInFigure(3), 'XScale', 'log')
 
-figure(17)
+figure(length(findobj('type','figure'))+1)
 plot(fresp(vr2shankR_decimated,'nFFT',nFFT/dr,'nOverlap', nOverlap));
 title('FR: VR -> right shank angle ');hold on
 set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
@@ -37,7 +37,7 @@ set(allAxesInFigure(1), 'XScale', 'log')
 set(allAxesInFigure(2), 'XScale', 'log')
 set(allAxesInFigure(3), 'XScale', 'log')
 
-figure(18)
+figure(length(findobj('type','figure'))+1)
 plot(fresp(vr2hip_decimated,'nFFT',nFFT/dr,'nOverlap', nOverlap));
 title('FR: VR -> Hip angle ');hold on
 set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
@@ -46,7 +46,7 @@ set(allAxesInFigure(1), 'XScale', 'log')
 set(allAxesInFigure(2), 'XScale', 'log')
 set(allAxesInFigure(3), 'XScale', 'log')
 
-figure(19)
+figure(length(findobj('type','figure'))+1)
 plot(fresp(vr2tqSum_decimated,'nFFT',nFFT/dr,'nOverlap', nOverlap));
 title('FR: VR -> Sum Torque');hold on
 set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])

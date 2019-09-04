@@ -1,11 +1,9 @@
-function [Trials_Data_Realizations, Trials_NLD] = dataRealizations(SubjIndex, Experiment, Trials_Data, Averaging, stackTrials, NN)
+function [Trials_Data_Realizations, Trials_NLD] = dataRealizations_Unified(SubjIndex, Experiment, Trials_Data, Averaging, stackTrials, NN)
 
 global SR
 
-% bDDT_VR     = input('Would you like to analyze the input Velocity or Position? \n 1) Velocity\n 2) Position\n');
-% bDDT_Output = input('Would you like to analyze the output Velocity or Position? \n 1) Velocity\n 2) Position\n');
-bDDT_VR     = 2;
-bDDT_Output = 2;
+bDDT_VR     =  2;
+bDDT_Output =  2;
 
 if (Averaging == 0) % No averaging. show both trials at the same time   
     
@@ -25,7 +23,7 @@ if (Averaging == 0) % No averaging. show both trials at the same time
     Trials_Data_Realizations.RTA = Trials_Data.R_TA_EMG;
     Trials_Data_Realizations.LTA = Trials_Data.L_TA_EMG;
     
-    figure(length(findobj('type','figure'))+1)
+    figure(33)
     subplot(2,2,[1 3])
     plot(Trials_Data_Realizations.vr_realizations','linewidth',1);title('Perturbation')
     
@@ -38,8 +36,6 @@ if (Averaging == 0) % No averaging. show both trials at the same time
     plot(Trials_Data_Realizations.right_tq','linewidth',1);title('Right torque')
     hold on
     plot(mean(Trials_Data_Realizations.right_tq),'b')
-    
-    set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
     
     
 else  % Averaging == 1 (average on periods of one trial) or 2 (average on all periods of all Trials_Data.trials)

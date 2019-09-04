@@ -26,7 +26,6 @@ clc;
 %% Load Data: 
 
 disp('Please Press Enter to Select the Input Signal Data!')
-pause;
 [vr_file,vr_path] = uigetfile({'*.txt';'*.xlsx';'*.slx';'*.mat';'*.*'},'VR Input File');
 vr_input = importdata(strcat(vr_path, vr_file));
 
@@ -108,10 +107,8 @@ if (Averaging == 0) % No averaging. show both trials at the same time
         set(OriZnldat,'dataSet', head_OriZ, 'domainIncr',1/SR);
         OriZnldat = ddt(OriZnldat); % derivatives
         
-    end
-    
-   
-    
+    end  
+     
     
 else  % Averaging == 1 (average on periods of one trial) or 2 (average on all periods of all Trials_Data.trials)    
     
@@ -264,7 +261,7 @@ legend('Measured','Simulated')
 set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
 
 %% Power Spectrum Decimated
-nFFT = 10 * SR;
+nFFT = 5 * SR;
 %nFFT = periodTime
 
 figure(5)
@@ -319,7 +316,7 @@ set(allAxesInFigure(3), 'XScale', 'log')
 
 figure(7)
 plot(fresp(vr2oriY_decimated,'nFFT',nFFT/dr,'nOverlap', nOverlap));
-title('FR: VR -> OriX ');hold on
+title('FR: VR -> OriY ');hold on
 set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
 allAxesInFigure = findall(gcf,'type','axes');
 set(allAxesInFigure(1), 'XScale', 'log')
@@ -328,7 +325,7 @@ set(allAxesInFigure(3), 'XScale', 'log')
 
 figure(8)
 plot(fresp(vr2oriZ_decimated,'nFFT',nFFT/dr,'nOverlap', nOverlap));
-title('FR: VR -> OriX ');hold on
+title('FR: VR -> OriZ ');hold on
 set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
 allAxesInFigure = findall(gcf,'type','axes');
 set(allAxesInFigure(1), 'XScale', 'log')

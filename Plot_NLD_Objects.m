@@ -5,7 +5,7 @@ set(0,'DefaultLineColor','b');
 
 
 %% Plot VR input vs. Outputs in each subplot
-figure(5);
+figure(length(findobj('type','figure'))+1);
 pl5(1) = subplot(221);
 ax = plotyy(t,Trials_NLD.VRnldat.dataSet, t,Trials_NLD.TorqueL.dataSet);hold on
 title('Left Ankle Torque')
@@ -37,7 +37,7 @@ ylabel(ax(2), 'Right Shank Angle (rad)')
 linkaxes(pl5,'x')
 set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
 
-figure(6);
+figure(length(findobj('type','figure'))+1);
 pl6(1) = subplot(211);
 ax = plotyy(t,Trials_NLD.VRnldat.dataSet, t,Trials_NLD.HipA.dataSet);hold on
 title('Hip Angle')
@@ -56,7 +56,7 @@ linkaxes(pl6,'x')
 set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
 
 %% EMGs
-figure(7);
+figure(length(findobj('type','figure'))+1);
 title('Muscle Activations (v)')
 
 pl7(1) = subplot(421);

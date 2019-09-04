@@ -11,10 +11,11 @@ end
 time = 0.001 * (1:length(Segments));
 
 if (b_Figure == 'y')    
-    figure(33);
+    figure(length(findobj('type','figure'))+1);
     plot(time, Segments','linewidth',1); title(strcat(inputname(1), ' Segments and Mean'));
     hold on
     plot(time,(mean(Segments))','b-', 'linewidth', 2)
+    set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
 end
 
 
