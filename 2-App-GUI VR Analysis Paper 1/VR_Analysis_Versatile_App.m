@@ -2,6 +2,8 @@ function VR_Analysis_Versatile_App(SubjIndex, Subject_data, Amplitude, Velocity,
 
 close all;
 clc;
+
+cd ..
 dataPath = pwd + "\data\";
 
 %% Parameters from csv file
@@ -9,7 +11,11 @@ number = Subject_data{1}(SubjIndex);
 name = Subject_data{2}{SubjIndex};
 flb_file = Subject_data{11}{SubjIndex};
 flb_file_path = dataPath + flb_file;
-trialsfile = pwd + "\SubjectsParams\TrialsInfo.csv";
+trialsfile = pwd + "\SubjectsParams\TrialsInfo_Set1.csv";
+cd 'App-GUI VR Analysis'
+
+% best_trial = Subject_data{14}(SubjIndex);
+% fprintf('\nThe best tested trial is #%d \n', best_trial)
 
 %% Brows for flb data (if needed)
 % cd data
@@ -38,14 +44,14 @@ trials = {data.comment}
 [Experiment, NN, trials, Amp, FigsPath, Averaging, stackTrials] = getExperimentSpecs_App(trialsfile, SubjIndex, Amplitude, Velocity, trial_case);
 
 %% read trials data based on chosen experiments
-Trials_Data = getTrialsData_TrapV(SubjIndex, Subject_data, flb_file_path, Experiment, NN, trials);
+Trials_Data = getTrialsData_App(SubjIndex, Subject_data, flb_file_path, Experiment, NN, trials);
 
 %% Synchronise the start time for VR input and outputs 
 % Trials_Data = syncStartData_TrapV(SubjIndex, Trials_Data, Experiment, NN);
-Trials_Data = syncStartData_gui(SubjIndex, Trials_Data, Experiment, NN);
+Trials_Data = syncStartData_App(SubjIndex, Trials_Data, Experiment, NN);
 
 %% change volts to deg
-Trials_Data.vr_input_deg = inputVolts2Deg_TrapV(SubjIndex, Experiment, Amp, Trials_Data.vr_input, NN);
+Trials_Data.vr_input_deg = inputVolts2Deg_App(SubjIndex, Experiment, Amp, Trials_Data.vr_input, NN);
 
 if (b_detrend == 1)    
     Trials_Data = detrend_data(Trials_Data, 'y');    
@@ -57,16 +63,16 @@ end
 t = 0:1/SR:(length(Trials_NLD.TorqueL)-1)/SR;
 
 %% Plot NLD Objects - Fig (5-7)
-run Plot_NLD_Objects.m
+run Plot_NLD_Objects_App.m
 
 %% Impulse Response Functions - Fig (8-11)
 run Plot_Impulse_Response_App.m
 
 %% Plot Power Spectrum and Power Spectrum Decimated - Fig (12-13)
-run Plot_Power_Spectrum.m
+run Plot_Power_Spectrum_App.m
 
 %% Frequency Response Functions - Fig (14-19)
-run Plot_Frequency_Response.m
+run Plot_Frequency_Response_App.m
 
 %% Save Figures
 % SaveAllFigures(FigsPath, '.png');

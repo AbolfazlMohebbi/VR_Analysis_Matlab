@@ -1,4 +1,4 @@
-function [dLeftSh,dRightSh,dHip] = LasDisQS(vLeft,vRight,vHip)
+function [dLeftSh,dRightSh,dHip] = LasDisQS_App(vLeft,vRight,vHip)
 % This function calculates the offset distances during QS.
 % The inputs are:
 %               vLeft:  left laser output voltage
@@ -17,9 +17,9 @@ function [dLeftSh,dRightSh,dHip] = LasDisQS(vLeft,vRight,vHip)
 % load RightLaserCalibrationConstants
 % load HipLaserCalibrationConstants
 
-load(fullfile('CalibrationParams', 'LeftLaserCalibrationConstants'))
-load(fullfile('CalibrationParams', 'RightLaserCalibrationConstants'))
-load(fullfile('CalibrationParams', 'HipLaserCalibrationConstants'))
+load(fullfile('..\CalibrationParams', 'LeftLaserCalibrationConstants'))
+load(fullfile('..\CalibrationParams', 'RightLaserCalibrationConstants'))
+load(fullfile('..\CalibrationParams', 'HipLaserCalibrationConstants'))
 
 % finding the distances
 dLeftSh = mLeftLaser * vLeft + bLeftLaser;

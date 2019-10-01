@@ -3,11 +3,16 @@
 close all
 clear all;
 clc;
+
+currentPath = pwd;
+cd ..
+mainFolder = pwd;
 dataPath = pwd + "\data\";
+folderName = erase(currentPath, mainFolder);
 
 %% Load Data and subject info: 
 
-fid = fopen('SubjectsParams/SubjectsParams_2.csv');
+fid = fopen('SubjectsParams/SubjectsParams_Set1.csv');
 Subject_data = textscan(fid, '%d %s %f %f %f %f %f %f %d %d %s %s %d', 'Delimiter', ',', 'HeaderLines', 1);
 fclose(fid);
 Subject_Names = Subject_data{2};
@@ -26,7 +31,8 @@ number = Subject_data{1}(SubjIndex);
 name = Subject_data{2}{SubjIndex};
 flb_file = Subject_data{11}{SubjIndex};
 flb_file_path = dataPath + flb_file;
-trialsfile = pwd + "\SubjectsParams\TrialsInfo.csv";
+trialsfile = pwd + "\SubjectsParams\TrialsInfo_Set1.csv";
+cd(strcat(pwd,folderName)); %'1-VR Analysis Paper 1'
 
 %% Brows for flb data (if needed)
 % cd data
