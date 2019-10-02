@@ -14,7 +14,7 @@ if (Averaging == 0) % No averaging. show both trials at the same time
     Trials_Data_Realizations.right_tq = Trials_Data.Torque_R;
     Trials_Data_Realizations.left_shank = Trials_Data.LeftShAngle;
     Trials_Data_Realizations.right_shank = Trials_Data.RightShAngle;
-    Trials_Data_Realizations.body_angle = Trials_Data.BodyAngle;
+    Trials_Data_Realizations.hip_angle = Trials_Data.HipAngle;
     
     Trials_Data_Realizations.LSol = Trials_Data.L_Sol_EMG;
     Trials_Data_Realizations.RSol = Trials_Data.R_Sol_EMG;
@@ -171,7 +171,7 @@ else  % Averaging == 1 (average on periods of one trial) or 2 (average on all pe
     Trials_Data_Realizations.right_tq = VR_IO_Averaging(Trials_Data.Torque_R, Trials_Data.trials, periodTime, periodCount, 'n');
     Trials_Data_Realizations.left_shank = VR_IO_Averaging(Trials_Data.LeftShAngle, Trials_Data.trials, periodTime, periodCount, 'n');
     Trials_Data_Realizations.right_shank = VR_IO_Averaging(Trials_Data.RightShAngle, Trials_Data.trials, periodTime, periodCount, 'n');
-    Trials_Data_Realizations.body_angle = VR_IO_Averaging(Trials_Data.BodyAngle, Trials_Data.trials, periodTime, periodCount, 'n');
+    Trials_Data_Realizations.hip_angle = VR_IO_Averaging(Trials_Data.HipAngle, Trials_Data.trials, periodTime, periodCount, 'n');
     
     Trials_Data_Realizations.LSol = VR_IO_Averaging(Trials_Data.L_Sol_EMG, Trials_Data.trials, periodTime, periodCount, 'n');
     Trials_Data_Realizations.RSol = VR_IO_Averaging(Trials_Data.R_Sol_EMG, Trials_Data.trials, periodTime, periodCount, 'n');
@@ -194,7 +194,7 @@ if (stackTrials == 1)  % Stacking
     Trials_Data_Realizations.right_tq = VR_IO_Stacking(Trials_Data_Realizations.right_tq);
     Trials_Data_Realizations.left_shank = VR_IO_Stacking(Trials_Data_Realizations.left_shank);
     Trials_Data_Realizations.right_shank = VR_IO_Stacking(Trials_Data_Realizations.right_shank);
-    Trials_Data_Realizations.body_angle = VR_IO_Stacking(Trials_Data_Realizations.body_angle);
+    Trials_Data_Realizations.hip_angle = VR_IO_Stacking(Trials_Data_Realizations.hip_angle);
     
     Trials_Data_Realizations.LSol = VR_IO_Stacking(Trials_Data_Realizations.LSol);
     Trials_Data_Realizations.RSol = VR_IO_Stacking(Trials_Data_Realizations.RSol);
@@ -221,10 +221,10 @@ if (stackTrials == 1)  % Stacking
     set(shankR,'dataSet', Trials_Data_Realizations.right_shank','domainIncr',1/SR);
     if (bDDT_Output == 1) shankR = ddt(shankR); end
     
-    %Body Angle
-    BodyA = nldat;
-    set(BodyA,'dataSet', Trials_Data_Realizations.body_angle' ,'domainIncr',1/SR);
-    if (bDDT_Output == 1) BodyA = ddt(BodyA); end
+    %Hip
+    HipA = nldat;
+    set(HipA,'dataSet', Trials_Data_Realizations.hip_angle' ,'domainIncr',1/SR);
+    if (bDDT_Output == 1) HipA = ddt(HipA); end
     
     % Summations
     TorqueSum = nldat;
@@ -280,10 +280,10 @@ elseif ((stackTrials == 2) && (Averaging == 0))  % No stacking No Averaging
     set(shankR,'dataSet', Trials_Data_Realizations.right_shank','domainIncr',1/SR);
     if (bDDT_Output == 1) shankR = ddt(shankR); end
     
-    %Body Angle
-    BodyA = nldat;
-    set(BodyA,'dataSet', Trials_Data_Realizations.body_angle' ,'domainIncr',1/SR);
-    if (bDDT_Output == 1) BodyA = ddt(BodyA); end
+    %Hip
+    HipA = nldat;
+    set(HipA,'dataSet', Trials_Data_Realizations.hip_angle' ,'domainIncr',1/SR);
+    if (bDDT_Output == 1) HipA = ddt(HipA); end
     
     % Summations
     TorqueSum = nldat;
@@ -339,10 +339,10 @@ elseif ((stackTrials == 2) && ((Averaging == 1) || (Averaging == 2)) ) % No stac
     set(shankR,'dataSet',mean(Trials_Data_Realizations.right_shank)' - mean(mean(Trials_Data_Realizations.right_shank)),'domainIncr',1/SR);
     if (bDDT_Output == 1) shankR = ddt(shankR); end
     
-    %Body Angle
-    BodyA = nldat;
-    set(BodyA,'dataSet', mean(Trials_Data_Realizations.body_angle)' - mean(mean(Trials_Data_Realizations.body_angle)) ,'domainIncr',1/SR);
-    if (bDDT_Output == 1) BodyA = ddt(BodyA); end
+    %Hip
+    HipA = nldat;
+    set(HipA,'dataSet', mean(Trials_Data_Realizations.hip_angle)' - mean(mean(Trials_Data_Realizations.hip_angle)) ,'domainIncr',1/SR);
+    if (bDDT_Output == 1) HipA = ddt(HipA); end
     
     % Summations
     TorqueSum = nldat;
@@ -386,7 +386,7 @@ Trials_NLD.VRnldat = VRnldat;
 
 Trials_NLD.TorqueL = TorqueL;
 Trials_NLD.TorqueR = TorqueR;
-Trials_NLD.BodyA = BodyA;
+Trials_NLD.HipA = HipA;
 Trials_NLD.shankL = shankL;
 Trials_NLD.shankR = shankR;
 Trials_NLD.TorqueSum = TorqueSum;

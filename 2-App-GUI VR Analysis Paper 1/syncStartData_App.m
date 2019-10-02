@@ -9,7 +9,7 @@ startPerturbation_index = zeros(1, length(Trials_Data.trials));
 
 vr_input_new = Trials_Data.vr_input;
 LeftShAngle_new = Trials_Data.LeftShAngle;
-HipAngle_new = Trials_Data.HipAngle;
+BodyAngle_new = Trials_Data.BodyAngle;
 RightShAngle_new = Trials_Data.RightShAngle;    
 Torque_L_new = Trials_Data.Torque_L;
 Torque_R_new = Trials_Data.Torque_R;
@@ -38,7 +38,7 @@ ti = tif(1); tf = tif(2);
 vr_input_new = vr_input_new(:, ti:tf);  
 
 LeftShAngle_new = LeftShAngle_new(:, ti:tf);
-HipAngle_new = HipAngle_new(:, ti:tf);
+BodyAngle_new = BodyAngle_new(:, ti:tf);
 RightShAngle_new = RightShAngle_new(:, ti:tf);
 Torque_L_new = Torque_L_new(:, ti:tf);
 Torque_R_new = Torque_R_new(:, ti:tf);
@@ -57,7 +57,7 @@ R_TA_EMG_new = R_TA_EMG_new(:, ti:tf);
 Trials_Data_Sync.vr_input = vr_input_new;
 Trials_Data_Sync.RightShAngle = RightShAngle_new;
 Trials_Data_Sync.LeftShAngle = LeftShAngle_new;
-Trials_Data_Sync.HipAngle = HipAngle_new;
+Trials_Data_Sync.BodyAngle = BodyAngle_new;
 Trials_Data_Sync.Torque_R = Torque_R_new;
 Trials_Data_Sync.Torque_L = Torque_L_new;
 Trials_Data_Sync.L_Sol_EMG = L_Sol_EMG_new;

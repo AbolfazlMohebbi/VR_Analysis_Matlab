@@ -1,38 +1,40 @@
 
-nFFT = 25 * SR;
+%nFFT = 25 * SR;
 %nFFT = periodTime
 
-figure(length(findobj('type','figure'))+1)
-inputVRpower = spect(Trials_NLD.VRnldat-mean(Trials_NLD.VRnldat),'nFFT',nFFT);
-pl3(1) = subplot(311);
-semilogx(0:SR/nFFT:SR/2,inputVRpower.dataSet);hold on
-xlim([0 SR/2])
-title('Input VR power')
-xlabel('Frequency (Hz)')
-ylabel('Power')
+%% 
 
-pl3(2) = subplot(312);
-rightTorquePower = spect(Trials_NLD.TorqueR,'nFFT',nFFT);
-leftTorquePower = spect(Trials_NLD.TorqueL,'nFFT',nFFT);
-sumTorquePower = spect(Trials_NLD.TorqueSum,'nFFT',nFFT);
-semilogx(0:SR/nFFT:SR/2,rightTorquePower.dataSet);hold on
-semilogx(0:SR/nFFT:SR/2,leftTorquePower.dataSet);hold on
-semilogx(0:SR/nFFT:SR/2,sumTorquePower.dataSet);hold on
-xlim([0 SR/2])
-legend('right', 'left', 'Sum');
-title('All Torque powers')
-xlabel('Frequency (Hz)')
-ylabel('Power')
-
-pl3(5) = subplot(313);
-hipPower = spect(Trials_NLD.HipA,'nFFT',nFFT);
-semilogx(0:SR/nFFT:SR/2,hipPower.dataSet);hold on
-xlim([0 SR/2])
-title('Hip Angle Power')
-xlabel('Frequency (Hz)')
-ylabel('Power')
-
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+% figure(length(findobj('type','figure'))+1)
+% inputVRpower = spect(Trials_NLD.VRnldat-mean(Trials_NLD.VRnldat),'nFFT',nFFT);
+% pl3(1) = subplot(311);
+% semilogx(0:SR/nFFT:SR/2,inputVRpower.dataSet);hold on
+% xlim([0 SR/2])
+% title('Input VR power')
+% xlabel('Frequency (Hz)')
+% ylabel('Power')
+% 
+% pl3(2) = subplot(312);
+% rightTorquePower = spect(Trials_NLD.TorqueR,'nFFT',nFFT);
+% leftTorquePower = spect(Trials_NLD.TorqueL,'nFFT',nFFT);
+% sumTorquePower = spect(Trials_NLD.TorqueSum,'nFFT',nFFT);
+% semilogx(0:SR/nFFT:SR/2,rightTorquePower.dataSet);hold on
+% semilogx(0:SR/nFFT:SR/2,leftTorquePower.dataSet);hold on
+% semilogx(0:SR/nFFT:SR/2,sumTorquePower.dataSet);hold on
+% xlim([0 SR/2])
+% legend('right', 'left', 'Sum');
+% title('All Torque powers')
+% xlabel('Frequency (Hz)')
+% ylabel('Power')
+% 
+% pl3(5) = subplot(313);
+% bodyPower = spect(Trials_NLD.BodyA,'nFFT',nFFT);
+% semilogx(0:SR/nFFT:SR/2,bodyPower.dataSet);hold on
+% xlim([0 SR/2])
+% title('Body Angle Power')
+% xlabel('Frequency (Hz)')
+% ylabel('Power')
+% 
+% set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
 
 %% Power Spectrum Decimated
 
@@ -61,10 +63,10 @@ ylabel('Power')
 
 
 pl3(5) = subplot(313);
-hipPower_decimated = spect(HipA_decimated,'nFFT',nFFT/dr);
-semilogx(0:SR/nFFT:SR/(2*dr),hipPower_decimated.dataSet);hold on
+bodyPower_decimated = spect(BodyA_decimated,'nFFT',nFFT/dr);
+semilogx(0:SR/nFFT:SR/(2*dr),bodyPower_decimated.dataSet);hold on
 xlim([0 SR/(2*dr)])
-title('Hip Angle Power Decimated')
+title('Body Angle Power Decimated')
 xlabel('Frequency (Hz)')
 ylabel('Power')
 set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])

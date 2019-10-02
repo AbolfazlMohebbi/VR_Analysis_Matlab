@@ -1,13 +1,13 @@
 function Trials_Data_detrend = detrend_data(Trials_Data, bPlotDetrend)
 
 global SR
-t = 0:1/SR:(length(Trials_Data.HipAngle)-1)/SR;
+t = 0:1/SR:(length(Trials_Data.BodyAngle)-1)/SR;
 
 Trials_Data_detrend.vr_input = Trials_Data.vr_input;
 Trials_Data_detrend.vr_input_deg = Trials_Data.vr_input_deg;
 Trials_Data_detrend.trials = Trials_Data.trials;
 
-Trials_Data_detrend.HipAngle = detrend(Trials_Data.HipAngle);
+Trials_Data_detrend.BodyAngle = detrend(Trials_Data.BodyAngle);
 Trials_Data_detrend.RightShAngle = detrend(Trials_Data.RightShAngle);
 Trials_Data_detrend.LeftShAngle = detrend(Trials_Data.LeftShAngle);
 Trials_Data_detrend.Torque_R = detrend(Trials_Data.Torque_R);
@@ -28,13 +28,13 @@ if (bPlotDetrend == 'y')
     figure(length(findobj('type','figure'))+1);    
     
     subplot(3,2,[1 2]);
-    plot(t, Trials_Data.HipAngle); hold on;
-    trend = Trials_Data.HipAngle - Trials_Data_detrend.HipAngle;
+    plot(t, Trials_Data.BodyAngle); hold on;
+    trend = Trials_Data.BodyAngle - Trials_Data_detrend.BodyAngle;
     plot(t, trend, ':r');hold on;
-    plot(t, Trials_Data_detrend.HipAngle, 'm'); hold on;
-    plot(t, zeros(size(Trials_Data_detrend.HipAngle)),':k'); hold on;
+    plot(t, Trials_Data_detrend.BodyAngle, 'm'); hold on;
+    plot(t, zeros(size(Trials_Data_detrend.BodyAngle)),':k'); hold on;
     legend('Original Data','Trend','Detrended Data','Mean of Detrended Data','Location','southeast');
-    title('Detrended data for HipAngle');
+    title('Detrended data for BodyAngle');
     
     subplot(3,2,3);
     plot(t, Trials_Data.RightShAngle); hold on;

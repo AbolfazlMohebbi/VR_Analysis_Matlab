@@ -3,7 +3,7 @@ function Trials_Data = getTrialsData_TrapV(SubjIndex, Subject_data, flb_file_pat
 global SR LasDel emgGain d_f d_b fc
 
 % Assign Parameters from csv file
-hHip = Subject_data{3}(SubjIndex);
+hBody = Subject_data{3}(SubjIndex);
 hRightSh = Subject_data{4}(SubjIndex);
 hLeftSh = Subject_data{5}(SubjIndex);
 hLM = Subject_data{6}(SubjIndex);
@@ -49,7 +49,7 @@ for i = 1:length(trials)
     dHip = mHipLaser * vHip(LasDel:Channel_Length) + bHipLaser;
     
     LeftShAngle(i,:) = angle_cal(dLeftSh,QS.dLeftSh_QS,hLeftSh - hLM);
-    HipAngle(i,:) = -angle_cal(dHip,QS.dHip_QS,hHip - hLM);
+    BodyAngle(i,:) = -angle_cal(dHip,QS.dHip_QS,hBody - hLM);
     RightShAngle(i,:) = angle_cal(dRightSh,QS.dRightSh_QS,hRightSh - hLM);
     
     % Calculation of ankle torque using load cell data
@@ -81,7 +81,7 @@ end
 Trials_Data.vr_input = vr_input;
 Trials_Data.RightShAngle = RightShAngle;
 Trials_Data.LeftShAngle = LeftShAngle;
-Trials_Data.HipAngle = HipAngle;
+Trials_Data.BodyAngle = BodyAngle;
 Trials_Data.Torque_R = Torque_R;
 Trials_Data.Torque_L = Torque_R;
 Trials_Data.L_Sol_EMG = L_Sol_EMG;
