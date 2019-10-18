@@ -1,4 +1,5 @@
 %% Decimate: Resample data at a lower rate after lowpass filtering.
+global nSides;
 
 VRnldat_decimated = decimate(Trials_NLD.VRnldat,dr);  % position input
 % VRnldat_decimated = decimate(ddt(Trials_NLD.VRnldat),dr);  % Velocity input
@@ -43,31 +44,45 @@ vr2tqSum_decimated = cat(2,VRnldat_decimated, TorqueSum_decimated);
 %% Impulse Response Functions 
 % To predict (simulate) the response of a linear system
 % if length of Input is N then nlags <= N/4
- 
-nsides = 2;
 
-irf_vr2tqL = irf(vr2tqL_decimated,'nSides',nsides,'nLags',nlags);
-irf_vr2tqR = irf(vr2tqR_decimated,'nSides',nsides,'nLags',nlags);
-irf_vr2shankL = irf(vr2shankL_decimated,'nSides',nsides,'nLags',nlags);
-irf_vr2shankR = irf(vr2shankR_decimated,'nSides',nsides,'nLags',nlags);
+plotIRF_lags = 5 * floor(SR/dr);
+
+irf_vr2tqL = irf(vr2tqL_decimated,'nSides',nSides,'nLags',nlags);
+irf_vr2tqR = irf(vr2tqR_decimated,'nSides',nSides,'nLags',nlags);
+irf_vr2shankL = irf(vr2shankL_decimated,'nSides',nSides,'nLags',nlags);
+irf_vr2shankR = irf(vr2shankR_decimated,'nSides',nSides,'nLags',nlags);
 
 global irf_gui;
 
 if (irf_gui==1)
-    irf_vr2body = irf(vr2body_decimated,'nSides',nsides,'nLags',nlags);
+    irf_vr2body = irf(vr2body_decimated,'nSides',nSides,'nLags',nlags);
     set(irf_vr2body,'irfPseudoInvMode','manual', 'irfFigNum', length(findobj('type','figure'))+1 );
-    irf_vr2body = nlident(irf_vr2body, vr2body_decimated,'nSides', nsides,'nLags', nlags); close;
-    set(irf_vr2body, 'nSides', 1, 'nLags', nlags, 'domainStart', 0);
-    I = irf_vr2body.dataSet; I = I(floor(length(irf_vr2body)/2) + 1 : end); irf_vr2body.dataSet = I;
+    irf_vr2body = nlident(irf_vr2body, vr2body_decimated,'nSides', nSides,'nLags', nlags); close;
+    irf_vr2body_plot = irf_vr2body;
+    set(irf_vr2body_plot, 'nSides', 1, 'nLags', nlags, 'domainStart', 0);
+    I = irf_vr2body_plot.dataSet; I = I(floor(length(irf_vr2body_plot)/2) + 1 : floor(length(irf_vr2body_plot)/2) + 1 + plotIRF_lags); irf_vr2body_plot.dataSet = I;
+%     set(irf_vr2body, 'nSides', 1, 'nLags', nlags, 'domainStart', 0);
+%     I = irf_vr2body.dataSet; I = I(floor(length(irf_vr2body)/2) + 1 : end); irf_vr2body.dataSet = I;
     
-    irf_vr2tqSum = irf(vr2tqSum_decimated,'nSides',nsides,'nLags',nlags);
+    irf_vr2tqSum = irf(vr2tqSum_decimated,'nSides',nSides,'nLags',nlags);
     set(irf_vr2tqSum,'irfPseudoInvMode','manual', 'irfFigNum', length(findobj('type','figure'))+1 );
-    irf_vr2tqSum = nlident(irf_vr2tqSum, vr2tqSum_decimated,'nSides', nsides,'nLags', nlags); close;
-    set(irf_vr2tqSum, 'nSides', 1, 'nLags', nlags, 'domainStart', 0);
-    I = irf_vr2tqSum.dataSet; I = I(floor(length(irf_vr2tqSum)/2) + 1 : end); irf_vr2tqSum.dataSet = I;    
+    irf_vr2tqSum = nlident(irf_vr2tqSum, vr2tqSum_decimated,'nSides', nSides,'nLags', nlags); close;
+    irf_vr2tqSum_plot = irf_vr2tqSum;
+    set(irf_vr2tqSum_plot, 'nSides', 1, 'nLags', nlags, 'domainStart', 0);
+    I = irf_vr2tqSum_plot.dataSet; I = I(floor(length(irf_vr2tqSum_plot)/2) + 1 : floor(length(irf_vr2tqSum_plot)/2) + 1 + plotIRF_lags); irf_vr2tqSum_plot.dataSet = I;
+%     set(irf_vr2tqSum, 'nSides', 1, 'nLags', nlags, 'domainStart', 0);
+%     I = irf_vr2tqSum.dataSet; I = I(floor(length(irf_vr2tqSum)/2) + 1 : end); irf_vr2tqSum.dataSet = I;    
 else
-    irf_vr2body = irf(vr2body_decimated,'nSides',nsides,'nLags',nlags);
-    irf_vr2tqSum = irf(vr2tqSum_decimated,'nSides',nsides,'nLags',nlags);    
+    irf_vr2body = irf(vr2body_decimated,'nSides',nSides,'nLags',nlags);
+    irf_vr2body_plot = irf_vr2body;
+    set(irf_vr2body_plot, 'nSides', 1, 'nLags', nlags, 'domainStart', 0);
+    I = irf_vr2body_plot.dataSet; I = I(floor(length(irf_vr2body_plot)/2) + 1 : floor(length(irf_vr2body_plot)/2) + 1 + plotIRF_lags); irf_vr2body_plot.dataSet = I;
+    
+    irf_vr2tqSum = irf(vr2tqSum_decimated,'nSides',nSides,'nLags',nlags);
+    irf_vr2tqSum_plot = irf_vr2tqSum;
+    set(irf_vr2tqSum_plot, 'nSides', 1, 'nLags', nlags, 'domainStart', 0);
+    I = irf_vr2tqSum_plot.dataSet; I = I(floor(length(irf_vr2tqSum_plot)/2) + 1 : floor(length(irf_vr2tqSum_plot)/2) + 1 + plotIRF_lags); irf_vr2tqSum_plot.dataSet = I;
+
 end  
 
 % figure(length(findobj('type','figure'))+1)
@@ -90,11 +105,11 @@ end
 
 figure(length(findobj('type','figure'))+1)
 subplot(211)
-plot(irf_vr2body);
+plot(irf_vr2body_plot);
 title('IRF: VR to Body Angle');hold on
 
 subplot(212)
-plot(irf_vr2tqSum);
+plot(irf_vr2tqSum_plot);
 title('IRF: VR to Torque Sum');hold on
 set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
 

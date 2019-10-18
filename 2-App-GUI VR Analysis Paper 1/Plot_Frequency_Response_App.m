@@ -54,25 +54,25 @@ set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
 
 %% Simulations and VAF
 
-FR_vr2body_sim = nlsim(fr_body, VRnldat_decimated);
-FR_vaf_body = vaf(BodyA_decimated, FR_vr2body_sim);
-
-figure(length(findobj('type','figure'))+1)
-plot(BodyA_decimated);hold on
-plot(FR_vr2body_sim);
-title(['FR Simulated Model vs. Measured Body Angle, VAF = %' num2str(double(FR_vaf_body),2)]);
-legend('Measured','Simulated FR')
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
-
-
-FR_vr2tqSum_sim = nlsim(fr_tqSum, VRnldat_decimated);
-FR_vaf_tqSum = vaf(TorqueSum_decimated, FR_vr2tqSum_sim);
-figure(length(findobj('type','figure'))+1)
-plot(TorqueSum_decimated);hold on
-plot(FR_vr2tqSum_sim);
-title(['FR Simulated Model vs. Measured Torque Sum, VAF = %' num2str(double(FR_vaf_tqSum),2)]);
-legend('Measured','Simulated FR')
-set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+% FR_vr2body_sim = nlsim(fr_body, VRnldat_decimated);
+% FR_vaf_body = vaf(BodyA_decimated, FR_vr2body_sim);
+% 
+% figure(length(findobj('type','figure'))+1)
+% plot(BodyA_decimated);hold on
+% plot(FR_vr2body_sim);
+% title(['FR Simulated Model vs. Measured Body Angle, VAF = %' num2str(double(FR_vaf_body),2)]);
+% legend('Measured','Simulated FR')
+% set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
+% 
+% 
+% FR_vr2tqSum_sim = nlsim(fr_tqSum, VRnldat_decimated);
+% FR_vaf_tqSum = vaf(TorqueSum_decimated, FR_vr2tqSum_sim);
+% figure(length(findobj('type','figure'))+1)
+% plot(TorqueSum_decimated);hold on
+% plot(FR_vr2tqSum_sim);
+% title(['FR Simulated Model vs. Measured Torque Sum, VAF = %' num2str(double(FR_vaf_tqSum),2)]);
+% legend('Measured','Simulated FR')
+% set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
 
 %%
 % figure(length(findobj('type','figure'))+1)

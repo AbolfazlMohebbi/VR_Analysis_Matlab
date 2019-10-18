@@ -26,7 +26,12 @@ R_TA_EMG_new =  Trials_Data.R_TA_EMG;
 
 %% Cut unnecessary initial and final zero data
 figure()
-plot(Trials_Data.vr_input);
+t_vr = 1:length(Trials_Data.vr_input);
+ax = plotyy(t_vr, Trials_Data.vr_input - mean(Trials_Data.vr_input), t_vr, Trials_Data.BodyAngle-mean(Trials_Data.BodyAngle));hold on
+title('Synchronizing Start and End times: VR Input vs. Body Angle')
+xlabel('Time (s)')
+ylabel(ax(1), 'VR input (Volts)');
+ylabel(ax(2), 'Hip Angle (Rad)');
 set(gcf,'Units','Normalized','OuterPosition',[0 0 1 1])
 [tif, yif] = getpts(gca);
 close;

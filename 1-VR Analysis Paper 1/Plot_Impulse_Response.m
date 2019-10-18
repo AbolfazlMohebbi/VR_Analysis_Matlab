@@ -31,7 +31,7 @@ vr2body_decimated = cat(2,VRnldat_decimated, BodyA_decimated);
 vr2tqSum_decimated = cat(2,VRnldat_decimated, TorqueSum_decimated);
 
 % nlags = 15 * (SR/dr);
-nlags = 10 * (SR/dr);
+nlags = 3 * (SR/dr);
 
 %% Plot Auto-correlation of the input
 

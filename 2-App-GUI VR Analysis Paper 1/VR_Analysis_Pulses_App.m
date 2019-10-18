@@ -1,4 +1,4 @@
-function VR_Analysis_Versatile_App(SubjIndex, Subject_data, Amplitude, Velocity, trial_case, b_detrend, bDDT_VR, bDDT_Output, bGui_IRF, ...
+function VR_Analysis_Pulses_App(SubjIndex, Subject_data, Amplitude, Velocity, trial_case, b_detrend, bDDT_VR, bDDT_Output, bGui_IRF, ...
                                     SR_gui, dr_gui, nFFT_gui, nLags_gui, nSides_gui)
 
 close all;
@@ -71,7 +71,7 @@ filtorder = 9;
 framelen = 10 * (SR/dr) + 1;
 Trials_Data = SGfilter_App(Trials_Data, filtorder, framelen);
 
-%% Create Data Realizations based on Averaging and Stacking Properties - Fig(1)
+%% Create Data Realizations based on Averaging and Stacking Properties
 
 [Trials_Data_Realizations, Trials_NLD] = dataRealizations_App(SubjIndex, Experiment, Trials_Data, Averaging, stackTrials, NN, bDDT_VR, bDDT_Output);
 t = 0:1/SR:(length(Trials_NLD.TorqueL)-1)/SR;

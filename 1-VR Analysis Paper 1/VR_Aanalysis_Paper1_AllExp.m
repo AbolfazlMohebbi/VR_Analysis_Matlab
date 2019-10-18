@@ -1,6 +1,8 @@
+%% Analysis of data of all experiments for each Subject (using best trials)
+% Example: VAF and Coherence for all amps and vels for a subject
 
-%%
-close all
+% run D:\StashVR\reklab_public-master\reklab_public\reklabPaths.m
+
 clear all;
 clc;
 
@@ -32,12 +34,7 @@ name = Subject_data{2}{SubjIndex};
 flb_file = Subject_data{11}{SubjIndex};
 flb_file_path = dataPath + flb_file;
 trialsfile = pwd + "\SubjectsParams\TrialsInfo_Set1_bestTrials.csv";
-cd(strcat(pwd,folderName)); %'1-VR Analysis Paper 1'
-
-%% Browse for flb data (if needed)
-% cd data
-% [file,path] = uigetfile({'*.flb';'*.xlsx';'*.slx';'*.mat';'*.*'},'File Selector');
-% cd ..
+cd(strcat(pwd,folderName)); 
 
 %% Global variables
 global SR LasDel emgGain dr d_f d_b fc nlags
@@ -49,49 +46,67 @@ d_f = 238.89/1000; % distance between the front load cells and ankle axis of rot
 d_b = 51.05/1000; % distance between the back load cells and ankle axis of rotation
 fc = 0.8/dr*(SR/2);
 
-%% Define Filtering
-% [filter_num,filter_den] = cheby1(10,0.05,fc/(SR/2)); % Chebyshev was used because it is used in decimation
-
 %% Show All data tags and Trials
 data = flb2mat(flb_file_path, 'read_all')
 trials_names = {data.comment}
 
-%% Experiment Specs: Averaging, Stacking, Amplitude, ....
-[Experiment, NN, trials, Amp, FigsPath, Averaging, stackTrials] = getExperimentSpecs_TrapV(trialsfile, SubjIndex);
+%% Experiment Specs
 
-%% read trials data based on chosen experiments
-Trials_Data = getTrialsData_TrapV(SubjIndex, Subject_data, flb_file_path, Experiment, NN, trials);
+VelCase = [2 5 10];
+AmpCase = [1 2 5 10];
+trialsMatrix = getExperimentSpecs_AllExp(trialsfile, VelCase, AmpCase, SubjIndex);
+
+%% Read trials for all experiments
+Trials_Data = getTrialsData_AllExp(SubjIndex, Subject_data, flb_file_path, data, trialsMatrix, VelCase, AmpCase);
+Trials_Data.VelCase = VelCase;
+Trials_Data.AmpCase = AmpCase;
+
 
 %% Synchronise the start time for VR input and outputs 
-% Trials_Data = syncStartData_TrapV(SubjIndex, Trials_Data, Experiment, NN);
-Trials_Data = syncStartData_gui(SubjIndex, Trials_Data, Experiment, NN);
+Trials_Data = syncStartData_AllExp(Trials_Data);
 
 %% change volts to deg
-Trials_Data.vr_input_deg = inputVolts2Deg_TrapV(SubjIndex, Experiment, Amp, Trials_Data.vr_input, NN);
+Trials_Data = inputVolts2Deg_AllExp(Trials_Data);
+
+%% Detrend data
 
 b_detrend = input('Would you like to de-trend the data? \n 1) YES\n 2) NO\n');
 if (b_detrend == 1)    
-    Trials_Data = detrend_data(Trials_Data, 'y');    
+    Trials_Data = detrend_data_AllExp(Trials_Data, 'n');    
 end
 
-Trials_Data = outputRad2Deg_TrapV(Trials_Data);
+%% Change RAD to DEG
+Trials_Data = outputRad2Deg_AllExp(Trials_Data);
 
 %% Create Data Realizations based on Averaging and Stacking Properties - Fig(1)
+[Trials_Data_Realizations, Trials_NLD] = dataRealizations_AllExp(Trials_Data);
 
-[Trials_Data_Realizations, Trials_NLD] = dataRealizations(SubjIndex, Experiment, Trials_Data, Averaging, stackTrials, NN);
-t = 0:1/SR:(length(Trials_NLD.TorqueL)-1)/SR;
+%% Plot NLD Objects
+% run Plot_NLD_Objects_AllExp.m
 
-%% Plot NLD Objects - Fig (5-7)
-run Plot_NLD_Objects.m
+%% Impulse Response Functions
+run Plot_Impulse_Response_AllExp.m
 
-%% Impulse Response Functions - Fig (8-11)
-run Plot_Impulse_Response.m
+%% Frequency Response Functions
+run Plot_Frequency_Response_AllExp.m
 
-%% Plot Power Spectrum and Power Spectrum Decimated - Fig (12-13)
-run Plot_Power_Spectrum.m
 
-%% Frequency Response Functions - Fig (14-19)
-run Plot_Frequency_Response.m
 
-%% Save Figures
-% SaveAllFigures(FigsPath, '.png');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
